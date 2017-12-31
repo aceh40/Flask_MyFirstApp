@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="jumbotron text-center">
+    <h1>Register to aceh40</h1>
+    <h2>Register to aceh40</h2>
+    <h3>Register to aceh40</h3>
+    <h4>Register to aceh40</h4>
+    <h5>Register to aceh40</h5>
+    <h6>Register to aceh40</h6>
+    <p class="lead">You can register here to aceh40:</p><br>
+    <form method="post" action="/register">
+        <label>Email:</label><br>
+        <input name="email" type="text"/><br>
+        <label>First Name:</label><br>
+        <input name="firstName" type="text"/><br>
+        <label>Last Name:</label><br>
+        <input name="lastName" type="text"/><br>
+        <button type="submit" value="Submit">Submit</button>    
+    </form>
+    <br>
+    <p>{{ message }}</p>
+    <br>
+</div>    
+<div class="jumbotron text-center">
+    <p class="lead">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                    , when an unknown printer took a galley of type and scrambled it to make a 
+                    type specimen book. It has survived not only five centuries, but also the 
+                    leap into electronic typesetting, remaining essentially unchanged. 
+                    It was popularised in the 1960s with the release of Letraset sheets containing 
+                    Lorem Ipsum passages, and more recently with desktop publishing software like 
+                    Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <p class="lead">Lorem Ipsum е елементарен примерен текст, използван в печатарската и типографската индустрия.</p>
+</div>
+{% endblock %}
