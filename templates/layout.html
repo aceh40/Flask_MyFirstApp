@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     </head>
     <body>
+		<div class="border-row" style="width: 100%; margin-bottom: 10px"></div>
         {% include "includes/_navbar.html" %}
-        <div class="container">
+		<div class="border-row" style="width: 100%; margin-bottom: 150px"></div>
+        <div class="container" style="min-height:100%">
             {% block body %}{% endblock %}
         </div>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>

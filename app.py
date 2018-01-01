@@ -7,7 +7,7 @@ This is a temporary script file.
 
 from flask import Flask, render_template, request, flash, url_for, redirect, session, logging
 from flask_sqlalchemy import SQLAlchemy
-from sampleBlogs import BlogsFunction
+from content_management import blogsFunction, sampleContent
 from datetime import datetime
 #import psycopg2
 
@@ -15,7 +15,8 @@ app = Flask (__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://aceh40user:pass@localhost/aceh40db'
 db = SQLAlchemy(app)
 
-blogs = BlogsFunction()
+blogs = blogsFunction()
+topic_dict = sampleContent()
 currentTime = datetime.now()
 
 ## Create database model:
@@ -41,7 +42,12 @@ class User(db.Model):
 def homePage():
     return render_template('home.html')    
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/programming/')
+def programmingPage():
+    return render_template("programming.html", topic_dict=topic_dict)
+
+
+@app.route('/register/', methods=['GET', 'POST'])
 def registerPage():
     message =''
     user = ''
@@ -65,10 +71,11 @@ def registerPage():
         return render_template ('register.html', message=message)
        ## This needs to be fixed. 
 
+
 ## Above: When i change redirect to registerPage, I get redirected endlessly.
 ## How do I clear the data from the form?    
 
-@app.route('/blog')
+@app.route('/blog/')
 def blogPage():
     return render_template('blog.html'
                            , blogs=blogs)  
@@ -82,7 +89,7 @@ def blogPostPage(id):
                            , id=id) 
 
 
-@app.route('/about')
+@app.route('/about/')
 def aboutPage():
     return render_template('about.html')   
 
