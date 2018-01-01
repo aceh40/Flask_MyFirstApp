@@ -93,6 +93,10 @@ def blogPostPage(id):
 def aboutPage():
     return render_template('about.html')   
 
+@app.errorhandler(404)
+def error404(e):
+    return render_template ('error404.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
 
