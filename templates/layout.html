@@ -11,6 +11,15 @@
         {% include "includes/_navbar.html" %}
 		<div class="border-row" style="width: 100%; margin-bottom: 150px"></div>
         <div class="container" style="min-height:100%">
+			{% with messages = get_flashed_messages () %}
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert-warning alert-dismissible" role="alert">
+						{{message}}
+						</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
             {% block body %}{% endblock %}
         </div>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
