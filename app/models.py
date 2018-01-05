@@ -21,7 +21,7 @@ class Users(db.Model):
     email = db.Column(db.String(100), unique=True)
     firstName = db.Column(db.String(50), nullable=False)
     lastName = db.Column(db.String(50), nullable=False)
-    registeredDate = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    registeredDate = db.Column(db.DateTime(timezone=False), index=True, default=datetime.utcnow)
     
 #    def __init__(self,email, firstName, lastName, registeredDate=datetime.now()):
 #        self.email = email
@@ -41,7 +41,7 @@ class User(db.Model):
     firstName = db.Column(db.String(50), nullable=False)
     lastName = db.Column(db.String(50), nullable=False)
     activeFlag = db.Column(db.Boolean)
-    registeredDate = db.Column(db.DateTime(timezone=True))
+    registeredDate = db.Column(db.DateTime(timezone=False))
     userActivities = db.relationship("ActivityLog")
     
 #    def __init__(self,email):
@@ -72,7 +72,7 @@ class ActivityLog(db.Model):
     activityLogId = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('User.userId'))
     activityTypeId = db.Column(db.Integer, db.ForeignKey('ActivityType.activityTypeId'))
-    effectiveDate = db.Column(db.DateTime, timezone=True, index=True, default=datetime.now)
+    effectiveDate = db.Column(db.DateTime (timezone=False), index=True, default=datetime.now)
     numerical = db.Column(db.Float(precision=6))
     notes = db.Column(db.String(1000))
     completed = db.Column(db.Boolean)

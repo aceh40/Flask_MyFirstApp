@@ -6,11 +6,11 @@ This is a temporary script file.
 """
 
 from flask import Flask, render_template, request, flash, url_for, redirect, session, logging
-from content_management import blogsFunction, sampleContent
+from app.content_management import blogsFunction, sampleContent
 from datetime import datetime
 from app import app
-from app.forms import LoginForm
-
+from .forms import LoginForm
+from app import models
 
 blogs = blogsFunction()
 topic_dict = sampleContent()
@@ -37,11 +37,11 @@ def registerPage():
         emailInput = request.form.get('email')
         firstNameInput = request.form.get('firstName')
         lastNameInput = request.form.get('lastName')
-        emailCheck = Users.query.filter_by(email=emailInput).all()
-        if emailCheck is None:s
-            user = Users(emailInput,firstNameInput,lastNameInput)
-            db.session.add(user)
-            db.session.commit()
+        emailCheck = models.Users.query.filter_by(email=emailInput).all()
+        if emailCheck is None:
+            user = models.Users(emailInput,firstNameInput,lastNameInput)
+            models.db.session.add(user)
+            models.db.session.commit()
             message = 'You have successfully regierered.'
         else:
             message = 'This email has already been registered'
