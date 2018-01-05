@@ -45,6 +45,7 @@ class User(db.Model):
     userActivities = db.relationship("ActivityLog")
     
 #    def __init__(self,email):
+    
 #        self.email = email
         
     def __repr__(self):
