@@ -12,17 +12,24 @@
 		<div class="border-row" style="width: 100%; margin-bottom: 150px"></div>
         <div class="container" style="min-height:100%">
 			{% with messages = get_flashed_messages () %}
+			
 				{% if messages %}
 					{% for message in messages %}
-						<div class="alert-warning alert-dismissible" role="alert">
-						{{message}}
+						<div class="alert-warning alert-dismissible" role="alert" style="width:40%">
+						
+						<!-- THIS BUTTON DOES NOT WORK:-->
+						<button type="button" class="close" data-dismiss="alert" area-label="close">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true">
+							</span>
+						</button>﻿
+						<h4>{{message}}</h4>
 						</div>
 					{% endfor %}
 				{% endif %}
 			{% endwith %}
             {% block body %}{% endblock %}
         </div>
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     </body>
 </html>

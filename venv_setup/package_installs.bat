@@ -7,8 +7,7 @@ pip install flask-sqlalchemy
 pip install sqlalchemy-migrate
 pip install flask-whooshalchemy
 pip install wtforms
-pip install flask-wtf
-pip install flask_wtf
+pip install Flask-WTF
 pip install flask-babel
 pip install guess_language
 pip install flipflop
