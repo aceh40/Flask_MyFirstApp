@@ -23,7 +23,7 @@ class RegistrationForm(Form):
 								, [validators.Length(min=4, max=20)
 									,validators.EqualTo('password', message=msgPassMatch )])
 	acceptTerms = BooleanField('I accept the <a href="/tos/">Terms of Service</a> etc...', [validators.Required()])
-	submit = SubmitField('Sign In')
+	#submit = SubmitField('Sign In')
 	
 
 

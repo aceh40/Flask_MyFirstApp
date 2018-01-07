@@ -58,16 +58,17 @@ def registerPage():
 			password = sha256_crypt.encrypt((str(regForm.password.data)))
 			cur, conn = connection()
 			q = checkUserEmail()
-			x = 0 #cur.execute('SELECT * FROM public."User" WHERE email = %s', (email))
-			if int(x)> 0:
+			cur.execute(q, (email,))
+			x = cur.fetchone()
+			if x[0] > 0:
 				flash("This email address is already registered.")
 				return render_template('register.html'
 										, form=regForm)
 			else:
 				q = registerUser()
 				activeFlag = True
-				cur.execute('INSERT INTO public."User" (email, password_hash, "firstName", "lastName", "activeFlag") VALUES (%s, %s, %s, %s, %s)'				
-							, (email, password, firstName, lastName, activeFlag))
+				n = datetime.now()
+				cur.execute(q, (email, password, firstName, lastName, activeFlag))
 				conn.commit()
 				flash ("Thanks for registering")
 				cur.close()
