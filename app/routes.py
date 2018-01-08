@@ -14,7 +14,7 @@ from app import app
 from app import models
 from .forms import RegistrationForm
 from .db_connection import connection
-from .queries import checkUserEmail, registerUser
+from .queries import checkUserEmail, registerUser, checkLoginEmail
 
 
 blogs = blogsFunction()
@@ -26,6 +26,7 @@ currentTime = datetime.now()
 # =============================================================================
 
 @app.route('/')
+@app.route('/home/')
 def homePage():
     flash ("Flash Test!")
     flash ("Flash Test2!")
@@ -35,9 +36,6 @@ def homePage():
 	
 @app.route('/dashboard/')
 def dashboardPage():
-    flash ("you have successfully logged in")
-    flash ("you have successfully logged in")
-    flash ("you have successfully logged in")
     return render_template('dashboard.html')   	
 	
 	
@@ -67,7 +65,7 @@ def registerPage():
 			else:
 				q = registerUser()
 				activeFlag = True
-				n = datetime.now()
+				n = datetime.utcnow()
 				cur.execute(q, (email, password, firstName, lastName, activeFlag))
 				conn.commit()
 				flash ("Thanks for registering")
@@ -87,27 +85,48 @@ def registerPage():
 ## Above: When i change redirect to registerPage, I get redirected endlessly.
 ## How do I clear the data from the form?    
 
+
 @app.route('/login/', methods=["GET","POST"])
 def loginPage():
 	error = ''
 	try:
+		cur, conn = connection()
 		if request.method == "POST":
-			attempted_username = request.form['username']
-			attempted_password = request.form['password']
-			
-			#flash (attempted_username)
-			#flash (attempted_password)
-			
-			if attempted_username  == 'admin' and attempted_password == 'pass':
-				return redirect(url_for('dashboardPage'))
+			email = request.form['email']
+			qe = checkUserEmail()
+			cur.execute(qe, (email,))
+			x = cur.fetchone()
+			if x[0] == 0:
+				error = "Invalid credentials. Please try again"
+				#gc.collect()
+				flash("Wrong email address")
 			else:
-				error = "Invalid credentials. Try again."
-		
-		return render_template("login.html", error=error)
-	
+				qp = checkLoginEmail()
+				cur.execute (qp, (email,))
+				passwd = cur.fetchone()[1]
+			
+				if sha256_crypt.verify(request.form['password'], passwd):
+					session['logged in'] = True
+					session['email'] = request.form['email']
+					flash ("You have successfully signed in!!!!!!")
+					gc.collect()
+					return redirect(url_for("dashboardPage"))
+				else:
+					error = "Invalid credentials. Please try again"
+					flash("Password is wrong")
+					gc.collect()
+					return render_template("login.html", error=error)
+			gc.collect()
+			return render_template("login.html", error=error) 
+		else:
+			gc.collect()
+			return render_template("login.html", error=error)
 	except Exception as e:
-		#flash (e)
-		return render_template('login.html', error=error)  
+		flash(e)
+		gc.collect()
+		return render_template("login.html", error=error)
+
+
 
 
 @app.route('/blog/')

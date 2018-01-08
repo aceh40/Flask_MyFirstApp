@@ -2,22 +2,21 @@
 
 {% block body %}
 <body>
-
-<div class="container" style="background-color: white">
-	<br/>
-	<h4>Log In:</h4>
-	<br/>
-	<form action="" class="form-inline" method="post">
-		<input type="text" class="form-control" 
-			placeholder="Username" name="username" 
-			value="{{request.form.username}}"></input>
-		<input type="password" class="form-control" 
-			placeholder="Password" name="password" 
-			value="{{request.form.password}}"></input>
-		<input class="btn btn-default" type="submit" value="Log In">
-	</form>
-	
-	<p>{{error}}</p>
-</div>
+	<div class="container" style="background-color: white">
+		<br/>
+		<h4>Please Log In:</h4>
+		<br/>
+		<form action="" class="form-inline" method="post">
+			<input type="text" class="form-control" 
+				placeholder="Email Addresss" name="email" 
+				value="{{request.form.username}}"></input>
+			<input type="password" class="form-control" 
+				placeholder="Password" name="password" 
+				value="{{request.form.password}}"></input>
+			<input class="btn btn-default" type="submit" value="Log In">
+		</form>
+		<br/>
+		<p><strong>{{error}}</strong></p>
+	</div>
 </body>
 {% endblock %}

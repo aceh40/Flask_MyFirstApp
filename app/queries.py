@@ -14,6 +14,16 @@ def registerUser():
 		VALUES (%s, %s, %s, %s, %s);'''
 	return q	
 	
+
+def checkLoginEmail():
+	q = """	SELECT email
+			, password_hash
+			, active_flag
+			FROM public.user
+			WHERE email =  %s
+			AND active_flag = 'true'"""
+	return q
+
 	
 	'''
 	CREATE A NEW SCRIPT, IMPORT PSYCOPG2 AND BREAK DOWN THE QUERY FROM SCRATCH
